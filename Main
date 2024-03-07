@@ -1,0 +1,92 @@
+import java.util.*;
+
+public class Main {
+    public static void main(String[] args) {
+        Set<Integer> hashSet = new HashSet<>();
+        Set<Integer> linkedSet = new LinkedHashSet<>();
+        Set<Integer> treeSet = new TreeSet<>();
+        int number;
+        while (hashSet.size() < 20) {
+            number = (int) (Math.random() * 40) + 30;
+            hashSet.add(number);
+            linkedSet.add(number);
+            treeSet.add(number);
+        }
+        System.out.println(hashSet);
+        System.out.println(linkedSet);
+        System.out.println(treeSet);
+        System.out.println("----------------------------------------------------");
+        System.out.println(hashSet.remove(25));
+        System.out.println(hashSet.contains(14));
+      //  hashSet.clear();
+        System.out.println(hashSet);
+        System.out.println("----------------------------------------------------");
+        treeSet.add(25);
+        treeSet.add(265);
+        treeSet.add(2);
+        treeSet.add(15);
+        System.out.println(treeSet);
+
+        Set<Integer>tempSet=new TreeSet<>();
+        tempSet.add(40);
+        tempSet.add(50);
+        tempSet.add(60);
+        tempSet.add(70);
+        linkedSet.addAll(tempSet);
+        System.out.println(linkedSet);
+        System.out.println("-----------------------drukowanie z iteratorem-----------------------------");
+        Iterator<Integer>itr=linkedSet.iterator();
+        while (itr.hasNext()) System.out.println(itr.next());
+        System.out.println("-----------------------usuwanie z iteratorem-----------------------------");
+        Iterator<Integer>iterator= linkedSet.iterator();
+        while (iterator.hasNext()){
+            if(iterator.next()==50){
+                iterator.remove();
+                System.out.println(linkedSet);
+            }
+        }
+        System.out.println("-----------------------usuwanie z użyciem set Temp-----------------------------");
+        Set<Integer>newSet=new LinkedHashSet<>();
+        List<Integer>list=new ArrayList<>(linkedSet);
+        for(int i=0;  i <list.size();i++){
+          if(list.get(i)!=70){
+              newSet.add(list.get(i));
+          }
+        }
+        System.out.println(newSet);
+        System.out.println("----------------------------Set z obiektów Animal------------------------");
+        Set<Animal>animals=new TreeSet<>(new Comparator<Animal>() {
+            @Override
+            public int compare(Animal a1, Animal a2) {
+                return a1.getName().compareTo(a2.getName());
+            }
+        });
+        animals.add(new Animal("Azor","Pies",12));
+        animals.add(new Animal("Puszek","Kot",4));
+        animals.add(new Animal("Nemo","Ryba",1));
+        for (Animal animal:animals){
+            System.out.println(animal);
+        }
+        System.out.println("---------------------usuwanie Animal z iteratorem-------------------------------");
+
+
+        Iterator<Animal>it= animals.iterator();
+        while (it.hasNext()){
+            if(it.next().getName().equals("Azor")){
+                it.remove();
+                System.out.println(animals);
+            }
+        }
+
+
+        System.out.println("-----------");
+
+        System.out.println("---------------------drukowanie Animal z iteratorem-------------------------------");
+
+
+
+
+        Iterator<Animal>i=animals.iterator();
+        while (i.hasNext()) System.out.println(i.next());
+    }
+}
